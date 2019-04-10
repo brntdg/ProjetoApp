@@ -1,39 +1,27 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, Image, StyleSheet } from 'react-native';
 
-export default class ProjetoApp extends Component {
-
-  somar(x,y) {
-    return x + y;
-  }
-
-  
+export default class ProjetoApp extends Component {    
 
   render() {
 
-    let nome = 'Bruno'
+    let imagem = {uri:'https://vignette.wikia.nocookie.net/mensageiros/images/4/4b/Paisagem_imagem_linda_k.jpg/revision/latest?cb=20160225223314&path-prefix=pt-br'};
 
     return (
 
       <View>
-        <Text style={styles.texto}>A soma de 2 + 2 é: {this.somar(2,2)}</Text>
+        <Text>Olá Mundo</Text>
+        <Text>Olá Mundo</Text>
+        <Text>Olá Mundo</Text>
+        <Text>Olá Mundo</Text>
+        <Text style={{fontSize:25, color:'red', margin:20}}>Olá Mundo</Text>
 
-        <Button title='Aperte' onPress={() => {
-          alert('Apertou o botão!');
-        }}/>
+        <Image source={imagem} style={{width:300, height:300}}/>
       </View>
-
 
       );
 
   }
 
-
 }
 
-const styles = StyleSheet.create({
-    texto:{
-        fontSize:30
-    }
-
-});
