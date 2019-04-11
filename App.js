@@ -1,22 +1,48 @@
 import React, { Component } from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 
-export default class ProjetoApp extends Component {    
+class Janta extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {comida: this.props.comida};
+    let comidas = ['Arroz', 'Macarrão', 'Feijão', 'Alface', 'Pizza'];
+
+    setInterval(() => {
+
+      this.setState(previousState => {
+        let n = Math.floor(Math.random() * comidas.length);
+
+        return {comida: comidas[n] };
+
+      });
+
+    }, 1000);
+  }
 
   render() {
-
-    let imagem = {uri:'https://vignette.wikia.nocookie.net/mensageiros/images/4/4b/Paisagem_imagem_linda_k.jpg/revision/latest?cb=20160225223314&path-prefix=pt-br'};
 
     return (
 
       <View>
-        <Text>Olá Mundo</Text>
-        <Text>Olá Mundo</Text>
-        <Text>Olá Mundo</Text>
-        <Text>Olá Mundo</Text>
-        <Text style={{fontSize:25, color:'red', margin:20}}>Olá Mundo</Text>
+        <Text style={{textAlign:'center', fontSize:20, fontWeight:'bold', color:'red'}}>Hoje você vai jantar:</Text>
+        <Text style={{textAlign:'center', fontSize:20}}>{this.state.comida}</Text>
+      </View>
 
-        <Image source={imagem} style={{width:300, height:300}}/>
+    );
+  }
+}
+
+export default class ProjetoApp extends Component {    
+
+  render() {
+
+  
+
+    return (
+
+      <View style={{paddingTop:20}}>
+        <Janta comida='Farinha'/>
       </View>
 
       );
