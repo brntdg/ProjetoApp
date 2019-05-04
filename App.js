@@ -1,72 +1,78 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ImageBackground, Text, Button } from 'react-native';
+import { View, StyleSheet, ImageBackground, Text, Button, TouchableOpacity } from 'react-native';
+
+class Botao extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.styles = StyleSheet.create({
+      botao:{
+        width:150,
+        height:60,
+        borderWidth:2,
+        borderColor:props.color,
+        backgroundColor:'transparent',
+        borderRadius:30
+      },
+      botaoArea:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center'
+      },
+      botaoText: {
+        color:props.color,
+        fontSize:15,
+        fontWeight:'bold'
+      }
+    });
+  }
+
+  render() {
+    return(
+      <TouchableOpacity style={this.styles.botao} onPress={this.props.onPress}>
+          <View style={this.styles.botaoArea}>
+            <Text style={this.styles.botaoText}>Assemble</Text>
+          </View>
+      </TouchableOpacity>
+    );
+  }
+}
 
 export default class ProjetoApp extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {consumido:0, status:'Ruim', pct:0}
+    this.state = {v:'Capitão América'};
 
-    this.addCopo = this.addCopo.bind(this);
-    this.atualizar = this.atualizar.bind(this);
+    this.a = ['Capitão América', 'Homem de Ferro', 'Thor', 'Hulk', 'Gavião Arqueiro', 'Viuva Negra'];
+
+
+    this.mudarV = this.mudarV.bind(this);
   }
 
-  atualizar() {
+  mudarV() {
     let s = this.state;
-    s.pct = Math.floor((s.consumido/2000) * 100);
 
-    if(s.pct >= 100) {
-      s.status = "Bom";
-    } else {
-      s.status = "Ruim";
-    }
+    let r = Math.floor(Math.random() * this.a.length);
+
+    s.v = this.a[r];
 
     this.setState(s);
   }
 
-  addCopo() {
-    let s = this.state;
-    s.consumido += 300;
-    this.setState(s);
-
-    this.atualizar();
-  }
 
   render() {
     return ( 
       <View style={styles.body}> 
-        <ImageBackground source={require('./images/waterbg.png')} style={styles.bgimage}>
-        
-        <View>
-              <View style={styles.infoArea}>
-
-                  <View style={styles.area}>
-                    <Text style={styles.areaTitulo}>Meta</Text>
-                    <Text style={styles.areaDado}>2000ml</Text>
-                  </View>
-                  <View style={styles.area}>
-                    <Text style={styles.areaTitulo}>Consumido</Text>
-                    <Text style={styles.areaDado}>{this.state.consumido}ml</Text>
-                  </View>      
-
-                  <View style={styles.area}>
-                    <Text style={styles.areaTitulo}>Status</Text>
-                    <Text style={styles.areaDado}>{this.state.status}</Text>
-                  </View>       
-
-              </View>                  
-
-                  <View style={styles.pctArea}>
-                    <Text style={styles.pctText}>{this.state.pct}%</Text>
-                  </View>
-
-                  <View style={styles.btnArea}>
-                    <Button title="Beber 300ml" onPress={this.addCopo} color='#2b4274'/>
-                  </View>
-
-          </View>
-        </ImageBackground>       
-
+        <ImageBackground source={require('./images/foto.jpg')} style={styles.bgImage}>
+            <View style={styles.areaCont}>
+              <Text style={styles.title}>Qual Vingador Você Seria ?</Text>
+              <Text style={styles.avenger}>{this.state.v}</Text>
+              <Botao color='#A54B46' onPress={this.mudarV}/>
+            </View>
+        </ImageBackground>
       </View>
 
     );
@@ -78,38 +84,25 @@ const styles = StyleSheet.create({
     flex:1,
     paddingTop:20
   },
-  bgimage:{
+  bgImage:{
     flex:1,
     width:null
   },
-  infoArea:{
-    flex:1,
-    flexDirection:'row',
-    marginTop:70
-  },
-   area:{
+  areaCont:{
     flex:1,
     alignItems:'center'
-   },
-    areaTitulo:{
-      color:'#45b2fc'
-    },
-    areaDado:{
-      fontSize:15,
-      color:'#2b4274',
-      fontWeight:'bold'
-    },
-    pctArea:{
-      marginTop:170,
-      alignItems:'center'
-    },
-    pctText:{
-      fontSize:70,
-      color:'#FFFFFF',
-      backgroundColor:'transparent'
-    },
-    btnArea:{
-      marginTop:30,
-      alignItems:'center',
-    }
+  },
+  title:{
+    fontSize:30,
+    textAlign:'center',
+    color:'#05ADB8',
+    marginTop:50,
+    fontWeight:'bold'
+  },
+  avenger:{
+    fontSize:30,
+    marginTop:150,
+    marginBottom:130,
+    color:'#FFFFFF',
+  }
 });
